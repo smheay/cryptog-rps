@@ -14,7 +14,7 @@ def write_new_record(name, record_type, metadata, data):
         record = client.write(record_type, data, metadata)
     
     print (f'Wrote record {record.meta.record_id}')
-    print (f'{name} summitted {data}')
+    #print (f'{name} summitted {data}')
     
     #Save local files 
     send_to_file = {}
@@ -25,6 +25,4 @@ def write_new_record(name, record_type, metadata, data):
     f.write_to_file('records.json', send_to_file )
 
     
-    print (f'Wrote record {record.meta.record_id}')
-    print (f'{name} summitted {data}')
     return

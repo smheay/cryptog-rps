@@ -1,10 +1,16 @@
 
 import write_new_record
 import judgement
+import share_with_client
+import record_information
+import write_to_file as f
 
 players = {
     1: "Alicia",
     2: "Bruce"
+    }
+judge = {
+    3: "JUDGE_CLARENCE",
     }
 moves = {
     1: "rock",
@@ -37,12 +43,44 @@ def JudgeRound():
     return True
 
 
-def call3():
+def share_info():
+    record_type = 'game'
+
+    print('Who is shareing?     1= Alicia  2=Bruce  3=Judge?')
+    user_input1 = int(input())
+
+    if user_input1 != 3 :
+        client_name = players[user_input1]
+    else:
+        client_name = judge[user_input1]
+
+    print('Who is getting access?     1= Alicia  2=Bruce  3=Judge?')
+    user_input1 = int(input())
+
+    if user_input1 != 3 :
+        share_to_client_name = players[user_input1]
+    else:
+        share_to_client_name = judge[user_input1]
+
+
+    share_with_client.share_with_client(record_type, client_name, share_to_client_name)
     return True  
 
 
-def call4():
+def read_winner():
+    
+    new_list = f.read_file('judgement.json')
+    if new_list == None:
+        print("game.json is empty")
+        return
+
+    print('1= Alicia or 2 = Bruce?')
+    user_input1 = int(input())
+    client_name = players[user_input1]
+
+    record_information.read_record_client_name( client_name, new_list[-1]['judge_clarence']  )
     return True
+
 def call5():
     return True
 def call6():
@@ -55,8 +93,8 @@ def default():
 switcher = {
    1: Add_move,
    2: JudgeRound,
-   3: call3,
-   4: call4,
+   3: share_info,
+   4: read_winner,
    5: call5,
    6: call6,
    7: returnFalse
@@ -65,8 +103,8 @@ switcher = {
 switcherInfo = {
    1: "Play round",
    2: "Judge round",
-   3: "....",
-   4: "....",
+   3: "Share record",
+   4: "Read Winner",
    5: "....",
    6: "....",
    7: "End"
