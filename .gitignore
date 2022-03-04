@@ -4,5 +4,5 @@ env/
 __pycache__/
 test.txt
 arg_test.py
-*.txt
+text.txt
 *.json
