@@ -3,6 +3,12 @@ import write_to_file as f
 
 
 def write_new_record(name, record_type, metadata, data):
+    """
+    name: String
+    record_type: record name
+    metadata: None or dict string:string
+    data: dict string:string
+    """
 
     # load client
     client = load_client.load_client(name)

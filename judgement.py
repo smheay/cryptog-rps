@@ -11,6 +11,7 @@ Judges all games that are backed up
 Sends result to cloud and local storage
 Deletes games locally and in cloud
 
+
 Note : Refactor needed
 '''
 def make_judgment():

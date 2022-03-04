@@ -1,9 +1,17 @@
 import json
 from pathlib import Path
-
+"""
+Reads and writes data to files
+"""
 
 def read_file(filename):
-    
+    """
+    filename: String
+
+    Reads from file 
+
+    Returns: data tpye of file
+    """
     # NOTE ADD ERROR CHECKS
     # ADD MULTIPLE CALL LOCATION 
     read_from_file_test_null(filename)
@@ -20,9 +28,18 @@ def read_file(filename):
 
 
 def write_only_to_file(filename, write_to_file):
+    """
+    filename: String
+    write_to_file: Dataype of write_to_file
     
+    Writes to file 
+
+    Returns: None
+
     # NOTE ADD ERROR CHECKS
     # ADD MULTIPLE CALL LOCATION 
+    """
+   
     filename = f'{filename}'
 
     read_from_file_test_null(filename)
@@ -36,6 +53,17 @@ def write_only_to_file(filename, write_to_file):
     
 
 def write_to_file(filename, write_to_file):
+    """
+    filename: String
+    write_to_file: Dataype of write_to_file
+    
+    Reads from file and appends write_to_file at end of file
+
+    Returns: None
+
+    # NOTE ADD ERROR CHECKS
+    # ADD MULTIPLE CALL LOCATION 
+    """
     
     # NOTE ADD ERROR CHECKS
     # ADD MULTIPLE CALL LOCATION 
@@ -61,8 +89,13 @@ def write_to_file(filename, write_to_file):
 
 def write_to_env(new_user, configs):
     """
+    new_user: String
+    configs: e3db.config data to save 
+
     Writes to text file for env vars to be copied over
     #configs['names'][0]['version']
+
+    # NOTE: Format is note correct to copy directly to env
     """
 
     filename = f'test.txt'
@@ -91,6 +124,13 @@ def write_to_env(new_user, configs):
 
 
 def write_new_user_to_file(new_user, configs):
+    """
+    new_user: String
+    configs: e3db.config data to save 
+
+    Writes new users to local json file
+    Appends to end of list
+    """
 
     filename = f'local_user_list.json'
 
@@ -142,6 +182,10 @@ def write_new_user_to_file(new_user, configs):
 
 
 def remove_json_indents():
+    """
+    Used to remove formating from user list to 
+    copy into dashboard
+    """
     read_from_file_test_null('local_user_list.json')
 
     data = {}
@@ -162,6 +206,9 @@ def remove_json_indents():
 
 
 def read_from_file_test_null(filename):
+    """
+    Makes new file if not present
+    """
     myfile = Path(filename)
     myfile.touch(exist_ok =True)
 

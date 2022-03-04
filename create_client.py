@@ -38,7 +38,6 @@ config = e3db.Config(
 
 
 configs = config.__call__()
-
 ## Fixing uuid error in configs.client id returned as function call
 item = str(configs['client_id'])
 #newString = item[18:-1]

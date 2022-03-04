@@ -49,6 +49,10 @@ def JudgeRound():
 
 
 def share_info():
+    """
+    NOTE : WHERE IS THE JUDGEMENT SHARE?
+    
+    """
     record_type = 'game'
 
     print('Who is shareing?     1= Alicia  2=Bruce  3=Judge?')

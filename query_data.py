@@ -4,6 +4,7 @@ import load_client
 '''
 
 Coded but not used in program
+Do not look!
 
 
 '''
@@ -112,7 +113,6 @@ def query_data_record_winner(client_name,  record_ids=[], record_type_in=[]):
   record_type_name = ['judgement']
   #sentThis = '65739e53-9b1d-4cd0-a084-7ee86300f29a'
 
-  
   record_return = client.query(record_type=record_type_name, writer='all')
   #record_return = client.query( plain=u'{ "round":"1"}', writer='all')
   print(record_return.__len__())
@@ -128,9 +128,7 @@ def query_data_record_winner(client_name,  record_ids=[], record_type_in=[]):
 
 def query_judgements_and_delete(client_name):
   """
-  client_name String
-  record_type list
-  record_type list
+  client_name : String 
   """
   client = load_client.load_client(client_name)
 
