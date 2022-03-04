@@ -3,7 +3,11 @@ from os import environ as env
 from dotenv import load_dotenv
 
 load_dotenv()
+'''
 
+Loads client information from env
+
+'''
 def load_client_test():
     print("Test")
 

@@ -7,6 +7,10 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+'''
+Creates new users and adds key to test.txt to copy env vars and saves json of the clients made 
+to local_user_list.json
+'''
 
 # NOTE: ADD CHECK FOR MULTIPLE USERS 
 
@@ -40,6 +44,7 @@ item = str(configs['client_id'])
 #newString = item[18:-1]
 configs['client_id'] = item
 #After converting to string is why it is that way in source to sanitize errors like uuid call
+
 
 ##Set up file format
 list1 = []

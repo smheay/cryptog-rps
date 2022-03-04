@@ -4,7 +4,15 @@ import write_to_file as f
 import load_client
 import write_new_record 
 
+'''
+Reads in from game.json
+Checks for multiple games
+Judges all games that are backed up
+Sends result to cloud and local storage
+Deletes games locally and in cloud
 
+Note : Refactor needed
+'''
 def make_judgment():
     
     client = load_client.load_client('judge_Clarence')

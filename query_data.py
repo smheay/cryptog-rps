@@ -1,5 +1,21 @@
 import load_client
 
+
+'''
+
+Coded but not used in program
+
+
+'''
+
+
+
+
+
+
+
+
+
 """
         Parameters
         ----------
@@ -57,15 +73,7 @@ def query_data_record(client_name,  record_ids=[], record_type_in=[]):
   sentThis = ['65739e53-9b1d-4cd0-a084-7ee86300f29a', '15646350-249f-469c-adbc-90d1435c506e']
 
   record_type_name = ['game']
-  #sentThis = '65739e53-9b1d-4cd0-a084-7ee86300f29a'
-
-
-  #record_return = client.query(data=True, record_type=record_type_name, writer='all')
   record_return = client.query( data=True, record=sentThis, writer='all')
-
-  # for x in record_return:
-  #   print (f'{x.data["name"]} = {x.data["move"]}')
-
   return record_return
   
 

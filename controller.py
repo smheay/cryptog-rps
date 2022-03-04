@@ -5,6 +5,11 @@ import share_with_client
 import record_information
 import write_to_file as f
 
+'''
+This is the main controller for the program
+Follow commands to enter games
+'''
+
 players = {
     1: "Alicia",
     2: "Bruce"
