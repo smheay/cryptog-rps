@@ -13,6 +13,7 @@ to local_user_list.json
 '''
 
 # NOTE: ADD CHECK FOR MULTIPLE USERS 
+# 
 
 if len(sys.argv) == 2:
     exit

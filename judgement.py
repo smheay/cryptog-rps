@@ -12,8 +12,12 @@ Sends result to cloud and local storage
 Deletes games locally and in cloud
 
 
-Note : Refactor needed
+NOTE : Refactor needed
 '''
+
+
+
+
 def make_judgment():
     
     client = load_client.load_client('judge_Clarence')
@@ -38,8 +42,13 @@ def make_judgment():
                 alicia.append(z)
             if(y == 'Bruce'):
                 bruce.append(z)
+    
+    #NOTE: Check if alicia or bruce is None
+    if(len(bruce) == 0 or len(alicia) == 0  ):
+        print("Player has 0 games to judge")
+        return
 
-    #Note: Check if alicia or bruce is None
+    size = min(len(alicia), len(bruce))
 
     send_list = []
 
@@ -72,6 +81,8 @@ def make_judgment():
     decryptAlicia = []
     decryptBruce = []
 
+
+
     print(send_list)
     for x in range(len(send_list)):
         record = my_read.read_record_client(client, send_list[x])
@@ -100,10 +111,14 @@ def make_judgment():
         write_new_record.write_new_record('judge_clarence', record_type, metadata , data )
         
 
+
     # After judgement sent delete cloud storage
     for x in range(size):
         my_read.delete_record( 'alicia', alicia[x])
         my_read.delete_record( 'bruce',  bruce[x])
+
+
+
 
     # After judgement sent delete local storage
     send_to_file = {}

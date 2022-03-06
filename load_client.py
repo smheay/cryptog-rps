@@ -8,6 +8,9 @@ load_dotenv()
 Loads client information from env
 
 '''
+
+
+
 def load_client_test():
     print("Test")
 

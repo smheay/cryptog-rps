@@ -176,6 +176,9 @@ def write_new_user_to_file(new_user, configs):
     with open('local_user_list.json', 'w') as f:
         json.dump(data, f, indent=4 ,separators=(',',':'))
 
+    with open('no_indent_users.json', 'w') as f:
+        json.dump(data, f, indent=0 ,separators=(',',':'))  
+    
    
 
 
@@ -195,7 +198,7 @@ def remove_json_indents():
         except json.decoder.JSONDecodeError:
             pass
     
-    # Note to add format
+    # NOTE to add format
 
     with open('no_indent_users.json', 'w') as f:
         json.dump(data, f, indent=0 ,separators=(',',':'))

@@ -22,8 +22,15 @@ moves = {
     2: "papper",
     3: "scissors"
     }
+recordType = {
+    1: "game",
+    2: "judgement"
+    }
+'''
 
 
+NOTE: Add way to control and find rounds
+'''
 def Add_move():
     print('1= Alicia or 2 = Bruce?')
     user_input1 = int(input())
@@ -49,13 +56,13 @@ def JudgeRound():
 
 
 def share_info():
-    """
-    NOTE : WHERE IS THE JUDGEMENT SHARE?
     
-    """
-    record_type = 'game'
 
-    print('Who is shareing?     1= Alicia  2=Bruce  3=Judge?')
+    print('Record name?     1= Game  2=Judgement ')
+    user_input1 = int(input())
+    record_type = recordType[user_input1]
+
+    print('Who is shareing?     1= Alicia  2=Bruce  3=Judge ')
     user_input1 = int(input())
 
     if user_input1 != 3 :
@@ -63,7 +70,7 @@ def share_info():
     else:
         client_name = judge[user_input1]
 
-    print('Who is getting access?     1= Alicia  2=Bruce  3=Judge?')
+    print('Who is getting access?     1= Alicia  2=Bruce  3=Judge ')
     user_input1 = int(input())
 
     if user_input1 != 3 :
@@ -87,17 +94,24 @@ def read_winner():
     user_input1 = int(input())
     client_name = players[user_input1]
 
-    record_information.read_record_client_name( client_name, new_list[-1]['judge_clarence']  )
+    record = record_information.read_record_client_name( client_name, new_list[-1]['judge_clarence']  )
+    print(record._Record__data['winner'])
     return True
+
+
 
 def call5():
     return True
 def call6():
     return True
 def returnFalse():
+    
     return False
 def default():
-    return False
+    print("Returning to options")
+    return True
+
+
 
 switcher = {
    1: Add_move,
@@ -130,8 +144,10 @@ def switch():
     while(notDone):
 
         print(switcherInfo)
-        user_input = int(input())
-        notDone = switcher.get(user_input, False)()
+        user_input_main = input()
+        if user_input_main.strip().isdigit():
+            notDone = switcher.get(int(user_input_main), default)()
+       
     
 
 

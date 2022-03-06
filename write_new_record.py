@@ -20,11 +20,13 @@ def write_new_record(name, record_type, metadata, data):
         record = client.write(record_type, data, metadata)
     
     print (f'Wrote record {record.meta.record_id}')
+    print( record.meta.version)
     #print (f'{name} summitted {data}')
     
     #Save local files 
     send_to_file = {}
     send_to_file[name]= str(record.meta.record_id )
+    send_to_file['version']= str(record.meta.version )
     file_name= record_type+'.json'
 
     f.write_to_file(file_name, send_to_file )
