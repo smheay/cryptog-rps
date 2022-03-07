@@ -100,8 +100,10 @@ def read_winner():
 
     if(game_winner == 'No games'):
         print(f'No games found with round' )
+    elif(game_winner == 'Tie'):
+        print(f'Tie round' )
     else:
-        print(f'{game_winner.capitalize()} is the winner of round {user_input1}')
+        print(f'{game_winner.capitalize()} is the winner of round {user_input1}.')
 
     return True
 
@@ -148,7 +150,7 @@ def switch():
     
     while(notDone):
 
-        print(switcherInfo)
+        print(switcherInfo.keys)
         user_input_main = input()
         if user_input_main.strip().isdigit():
             notDone = switcher.get(int(user_input_main), default)()

@@ -23,7 +23,7 @@ def make_judgment():
     
     client = load_client.load_client('judge_Clarence')
     new_list = f.read_file('game.json')
-    start_judgements = query_data.query_data_record_last_judged('judge_Clarence') 
+    start_judgements = query_data.query_data_record_last_judged('judge_Clarence')
 
     #Note: Check if list in None
     if new_list == None:
@@ -55,9 +55,10 @@ def make_judgment():
 
     send_list = []
 
-    for x in range(start_judgements,size):
-        send_list.append(alicia[x])
-        send_list.append(bruce[x])
+    for x in range(size):
+        if  start_judgements < int(alicia[x]['round']):
+            send_list.append(alicia[x])
+            send_list.append(bruce[x])
 
 
     if len(alicia) < 1 or len(bruce) < 1:
@@ -82,10 +83,11 @@ def make_judgment():
     decryptBruce = []
 
 
-
+    record_list = []
     for x in range(len(send_list)):
         if 'Alicia' in send_list[x]:
             record = my_read.read_record_client(client, send_list[x]['Alicia'])
+            record_list.append(record)
             decryptAlicia.append(record.data['move'])
         else:
             record = my_read.read_record_client(client, send_list[x]['Bruce'])
@@ -100,7 +102,7 @@ def make_judgment():
         name_winner = list_of_outcomes[int(outcomesDic[decryptAlicia[x]])]  [int(outcomesDic[decryptBruce[x]])] 
 
         metadata  = {}
-        metadata ['round']= record.meta.plain['round']
+        metadata ['round']= record_list[x].meta.plain['round']
         record_type = 'judgement'
         data = {}
         data['winner']= name_winner

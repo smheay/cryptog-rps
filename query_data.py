@@ -93,15 +93,15 @@ def query_delete_record_all(client_name):
 
 
 
-# query_delete_record_all('Judge_Clarence')
-# query_delete_record_all('Bruce')
-# query_delete_record_all('Alicia')
+query_delete_record_all('Judge_Clarence')
+query_delete_record_all('Bruce')
+query_delete_record_all('Alicia')
 
 
 
 
 # query_data_record_last_judged('Judge_Clarence')
-query_data_record_round_winner('Bruce', 1)
+#query_data_record_round_winner('Bruce', 1)
 
 #query_data_record_round('Bruce', 'game')
 #records = query_record_name('Judge_Clarence', 'game')
