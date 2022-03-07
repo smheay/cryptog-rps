@@ -93,9 +93,9 @@ def query_delete_record_all(client_name):
 
 
 
-query_delete_record_all('Judge_Clarence')
-query_delete_record_all('Bruce')
-query_delete_record_all('Alicia')
+# query_delete_record_all('Judge_Clarence')
+# query_delete_record_all('Bruce')
+# query_delete_record_all('Alicia')
 
 
 

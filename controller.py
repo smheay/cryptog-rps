@@ -150,7 +150,7 @@ def switch():
     
     while(notDone):
 
-        print(switcherInfo.keys)
+        print(switcherInfo)
         user_input_main = input()
         if user_input_main.strip().isdigit():
             notDone = switcher.get(int(user_input_main), default)()
