@@ -4,6 +4,7 @@ import judgement
 import share_with_client
 import record_information
 import write_to_file as f
+import query_data
 
 '''
 This is the main controller for the program
@@ -26,11 +27,7 @@ recordType = {
     1: "game",
     2: "judgement"
     }
-'''
 
-
-NOTE: Add way to control and find rounds
-'''
 def Add_move():
     print('1= Alicia or 2 = Bruce?')
     user_input1 = int(input())
@@ -40,14 +37,14 @@ def Add_move():
 
     record_type = 'game'
     metadata  = {}
-    metadata ['round']= '1'
+    round_number = int(query_data.query_data_record_round(players[user_input1], record_type)) + 1
+    metadata ['round']= str(round_number)
     data = {}
     data['move']= moves[user_input2]
     data['name']= players[user_input1]
 
-    print(metadata , data)
-    write_new_record.write_new_record(players[user_input1], record_type, metadata , data )
 
+    write_new_record.write_new_record(players[user_input1], record_type, metadata , data )
     return True
 
 def JudgeRound():
@@ -87,15 +84,25 @@ def read_winner():
     
     new_list = f.read_file('judgement.json')
     if new_list == None:
-        print("game.json is empty")
-        return
+        print("no games")
+        return True
 
     print('1= Alicia or 2 = Bruce?')
     user_input1 = int(input())
     client_name = players[user_input1]
 
-    record = record_information.read_record_client_name( client_name, new_list[-1]['judge_clarence']  )
-    print(record._Record__data['winner'])
+    print('Game Round?')
+    user_input1 = int(input())
+
+    #record = record_information.read_record_client_name( client_name, new_list[-1]['judge_clarence']  )
+    #print(record._Record__data['winner'])
+    game_winner = query_data.query_data_record_round_winner(client_name, user_input1)
+
+    if(game_winner == 'No games'):
+        print(f'No games found with round' )
+    else:
+        print(f'{game_winner.capitalize()} is the winner of round {user_input1}')
+
     return True
 
 
@@ -137,8 +144,6 @@ switcherInfo = {
 
 def switch():
     
-
-
     notDone = True
     
     while(notDone):

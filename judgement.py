@@ -3,6 +3,7 @@ import record_information as my_read
 import write_to_file as f
 import load_client
 import write_new_record 
+import query_data
 
 '''
 Reads in from game.json
@@ -22,6 +23,7 @@ def make_judgment():
     
     client = load_client.load_client('judge_Clarence')
     new_list = f.read_file('game.json')
+    start_judgements = query_data.query_data_record_last_judged('judge_Clarence') 
 
     #Note: Check if list in None
     if new_list == None:
@@ -31,34 +33,32 @@ def make_judgment():
         print("Not enough games to judge")
         return
 
+ 
 
-    alicia = list()
-    bruce = list()
+    alicia = []
+    bruce = []
+
 
     for x in new_list:
-        for y,z in x.items():
-            print(f"{y} : {z}")
-            if(y == 'Alicia'):
-                alicia.append(z)
-            if(y == 'Bruce'):
-                bruce.append(z)
+        if 'Alicia' in x:
+            alicia.append(x)
+        else:
+            bruce.append(x)
+
     
     #NOTE: Check if alicia or bruce is None
     if(len(bruce) == 0 or len(alicia) == 0  ):
-        print("Player has 0 games to judge")
+        print("One player has 0 games to judge")
         return
 
     size = min(len(alicia), len(bruce))
 
     send_list = []
 
-    size = min(len(alicia), len(bruce))
-
-
-    
-    for x in range(size):
+    for x in range(start_judgements,size):
         send_list.append(alicia[x])
         send_list.append(bruce[x])
+
 
     if len(alicia) < 1 or len(bruce) < 1:
         print("Not enough games to judge")
@@ -83,27 +83,24 @@ def make_judgment():
 
 
 
-    print(send_list)
     for x in range(len(send_list)):
-        record = my_read.read_record_client(client, send_list[x])
-
-        if record.data['name'].upper() == 'ALICIA':
+        if 'Alicia' in send_list[x]:
+            record = my_read.read_record_client(client, send_list[x]['Alicia'])
             decryptAlicia.append(record.data['move'])
         else:
+            record = my_read.read_record_client(client, send_list[x]['Bruce'])
             decryptBruce.append(record.data['move'])
 
-    
-
+     
 
 
     for x in range(len(decryptBruce)):
-        print(f'''The Alicia picked: {decryptAlicia[x]}    Bruce: {decryptBruce[x]} 
-            \n{list_of_outcomes[int(outcomesDic[decryptAlicia[x]])]  [int(outcomesDic[decryptBruce[x]])]   }
-        ''')  
+        print(f'Alicia picked: {decryptAlicia[x]}         Bruce picked: {decryptBruce[x]}')  
+
         name_winner = list_of_outcomes[int(outcomesDic[decryptAlicia[x]])]  [int(outcomesDic[decryptBruce[x]])] 
 
         metadata  = {}
-        metadata ['round']= str(x)
+        metadata ['round']= record.meta.plain['round']
         record_type = 'judgement'
         data = {}
         data['winner']= name_winner
@@ -113,28 +110,30 @@ def make_judgment():
 
 
     # After judgement sent delete cloud storage
-    for x in range(size):
-        my_read.delete_record( 'alicia', alicia[x])
-        my_read.delete_record( 'bruce',  bruce[x])
-
-
+    
+    # for x in range(len(alicia)-1):
+    #     my_read.delete_record( 'Alicia', alicia[x]['Alicia'],  bruce[x]['version'])
+    # for x in range(len(bruce)-1):
+    #     my_read.delete_record( 'Bruce',  bruce[x]['Bruce'],  bruce[x]['version'])
 
 
     # After judgement sent delete local storage
-    send_to_file = {}
+    
+    if size == 1:
+        f.write_only_to_file('game.json', new_list)
+
+    
+    send_to_file = []
     len_Alicia =  len(alicia)
     len_Bruce = len(bruce) 
     if len_Alicia < len_Bruce:
-        for x in range(len_Alicia, len_Bruce):
-            send_to_file['Bruce'] = bruce[x]
+        for x in range(len_Alicia-1, len_Bruce):
+            send_to_file.append(bruce[x])
+        send_to_file.append(alicia[-1])
     else: 
-        for x in range(len_Bruce, len_Alicia):
-            send_to_file['Alicia'] = alicia[x]
+        for x in range(len_Bruce-1, len_Alicia):
+            send_to_file.append(alicia[x])
+        send_to_file.append(bruce[-1])
 
-    if len(send_to_file) == 0:
-        send_to_file = []
-    else:
-        send_to_file = [send_to_file]
-    
     f.write_only_to_file('game.json', send_to_file)
 

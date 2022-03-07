@@ -29,7 +29,7 @@ def read_record_client(client, record_id):
     client :  e3db.Client 
     record_id : to read from client ID
     """
-    new_record = e3db.client
+    new_record = None
 
     try:
         new_record = client.read(record_id)
@@ -42,20 +42,32 @@ def read_record_client(client, record_id):
    
 
 
-def delete_record(client_name, record_id):
+def delete_record(client_name, record_id, version):
     """
     client_name : String to load env var
+    record_id : to read from client ID
+    version: string of record version
+
+    NOTE: Store version to prevent loading
+    """
+    client = load_client.load_client(client_name)
+    print(f"Deleting Record: {record_id}")
+    client.delete(record_id, version)
+
+
+
+
+def delete_record_all(client_name, version, record_id):
+    """
+    client_name : String to load env var
+    version: String of record version
     record_id : to read from client ID
 
     Note: Store version to prevent loading
     """
     client = load_client.load_client(client_name)
-
-    new_record = client.read(record_id)
-    # record_serialized = new_record.to_json()
-    # #print(record_serialized)
     print(f"Deleting Record: {record_id}")
-    client.delete(record_id, new_record._Record__meta._Meta__version)
+    client.delete(record_id, version)
 
 
 
